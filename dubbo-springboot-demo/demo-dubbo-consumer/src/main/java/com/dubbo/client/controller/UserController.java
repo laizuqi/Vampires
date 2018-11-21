@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,9 @@ import com.dubbo.entity.UserDO;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+	
+	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	@Reference
 	UserService userService;
 
@@ -37,14 +42,26 @@ public class UserController {
 	public String UserLogin(HttpServletRequest req,HttpServletResponse res) throws IOException {
 		String userName=req.getParameter("name");
 		String userPasswd=req.getParameter("passwd");
+		
+		logger.error("这是ERROR级别的日志！");
+		logger.warn("这是WARN级别的日志！");
+		logger.info("这是INFO级别的日志！");
+		logger.debug("这是DEBUG级别的日志！");
+		
 		if(userName.equals("lzq")&&userPasswd.equals("lzq")){
 			res.sendRedirect("http://47.107.145.108/loginsucc.html");
 			System.out.println("Hi,"+userName+",you are login succ!");
+			logger.info("Hi,"+userName+",you are login succ!");
+			logger.debug("Hi,"+userName+",you are login succ!");
+
 			return "login_succ";
 		}
 		else{
 			res.sendRedirect("http://47.107.145.108/loginfail.html");
-			System.out.println("Hei,"+userName+",you are login fail!");
+			System.out.println("Hei,"+userName+",you are login fail!please check your name&passwd again!");
+			logger.info("Hei,"+userName+",you are login fail!please check your name&passwd again!");
+			logger.debug("Hei,"+userName+",you are login fail!please check your name&passwd again!");
+			logger.error("Hei,"+userName+",you are login fail!please check your name&passwd again!");
 			return "login_fail";
 		}
 		
