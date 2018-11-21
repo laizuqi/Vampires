@@ -21,7 +21,7 @@ import com.dubbo.entity.UserDO;
 @RequestMapping("/user")
 public class UserController {
 	
-	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@Reference
 	UserService userService;
@@ -43,25 +43,26 @@ public class UserController {
 		String userName=req.getParameter("name");
 		String userPasswd=req.getParameter("passwd");
 		
-		logger.error("这是ERROR级别的日志！");
-		logger.warn("这是WARN级别的日志！");
-		logger.info("这是INFO级别的日志！");
-		logger.debug("这是DEBUG级别的日志！");
+        LOGGER.trace("logback的--trace日志--输出了");
+        LOGGER.debug("logback的--debug日志--输出了");
+        LOGGER.info("logback的--info日志--输出了");
+        LOGGER.warn("logback的--warn日志--输出了");
+        LOGGER.error("logback的--error日志--输出了");
 		
 		if(userName.equals("lzq")&&userPasswd.equals("lzq")){
 			res.sendRedirect("http://47.107.145.108/loginsucc.html");
 			System.out.println("Hi,"+userName+",you are login succ!");
-			logger.info("Hi,"+userName+",you are login succ!");
-			logger.debug("Hi,"+userName+",you are login succ!");
+			LOGGER.info("Hi,"+userName+",you are login succ!");
+			LOGGER.debug("Hi,"+userName+",you are login succ!");
 
 			return "login_succ";
 		}
 		else{
 			res.sendRedirect("http://47.107.145.108/loginfail.html");
 			System.out.println("Hei,"+userName+",you are login fail!please check your name&passwd again!");
-			logger.info("Hei,"+userName+",you are login fail!please check your name&passwd again!");
-			logger.debug("Hei,"+userName+",you are login fail!please check your name&passwd again!");
-			logger.error("Hei,"+userName+",you are login fail!please check your name&passwd again!");
+			LOGGER.info("Hei,"+userName+",you are login fail!please check your name&passwd again!");
+			LOGGER.debug("Hei,"+userName+",you are login fail!please check your name&passwd again!");
+			LOGGER.error("Hei,"+userName+",you are login fail!please check your name&passwd again!");
 			return "login_fail";
 		}
 		
