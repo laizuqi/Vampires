@@ -12,6 +12,7 @@
     <jmxConfigurator/>
 
     <!-- 定义日志文件 输出位置 -->
+    <!-- local  config -->
     <property name="log.home_dir" value="E:\\FILES\\JAVA\\eclipse_project\\logs"/>
     <!-- AliYun server config 
     <property name="log.home_dir" value="/home/lzq/dubbo/logs"/>-->
