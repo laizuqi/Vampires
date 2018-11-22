@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>订单成功</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<style>
+			/* CSS RESET */
+			* { padding: 0; margin: 0; }
+			body { font: 12px "微软雅黑", Arial; background: #efeff4; min-width: 320px; max-width: 640px; color: #000; }
+			a { text-decoration: none; color: #666666; }
+			a, img { border: none; }
+			img { vertical-align: middle; }
+			ul, li { list-style: none; }
+			em, i { font-style: normal; }
+
+			.all_w { width: 91.3%; margin: 0 auto;
+				text-align: center;}
+			/*基础字体属性*/
+
+			/********/
+			.header { background: #393a3e; color: #f5f7f6; height: auto; overflow: hidden; }
+
+			.gofh a { padding-right: 10px; border-right: 1px solid #2e2f33; }
+			.gofh a img { width: 40%; }
+			.ttwenz { float: left; height: 45px; }
+			.ttwenz h4 { font-size: 16px; font-weight: 400; margin-top: 2px; }
+			.ttwenz h5 { font-size: 12px; font-weight: 400; color: #6c7071; }
+			.wenx_xx { text-align: center; font-size: 16px; padding: 18px 0; }
+			.wenx_xx .wxzf_price { font-size: 45px; }
+
+
+
+			/**/
+
+
+			.qsrzfmm_bt a { display: block; width: 10%; padding: 10px 0; text-align: center; }
+			.qsrzfmm_bt img.tx { width: 10%; padding: 10px 0; }
+			.qsrzfmm_bt span { padding: 15px 5px; }
+
+
+			.zfmmxx_shop .wxzf_price { font-size: 24px; float: left; width: 100%; }
+
+			.blank_yh img { height: 40px; }
+
+			.mm_box li { border-right: 1px solid #efefef; height: 40px; float: left; width: 16.3%; background: #FFF; }
+
+			.mm_box li:last-child { border-right: none; }
+
+
+			.nub_ggg li { width: 33.3333%; border-bottom: 1px solid #dadada; float: left; text-align: center; font-size: 22px; }
+			.nub_ggg li a { display: block; color: #000; height: 50px; line-height: 50px; overflow: hidden; }
+			.nub_ggg li a:active  { background: #e0e0e0;}
+			.nub_ggg li a.zj_x { border-left: 1px solid #dadada; border-right: 1px solid #dadada; }
+			.nub_ggg li span { display: block; color: #e0e0e0; background: #e0e0e0; height: 50px; line-height: 50px; overflow: hidden; }
+			.nub_ggg li span.del img { width: 30%; }
+
+
+			.zfcg_box{ background:#f2f2f2;  height: 56px; line-height:56px;   font-size:20px; color:#1ea300; }
+			.zfcg_box img{ width:10%;}
+
+			.cgzf_info{ background:#FFF; border-top:1px solid #dfdfdd; }
+
+			.spxx_shop{ background:#FFF; margin-left:4.35%; border-top:1px solid #dfdfdd; padding:10px 0; }
+			.spxx_shop td{ color:#7b7b7b; font-size:14px; padding:10px 0;}
+
+
+			.wzxfcgde_tb img{ width:20.6%;}
+			.mlr_pm{margin-right:4.35%;}
+
+
+
+
+
+
+
+		</style>
+	</head>
+
+	<body>
+		<!--<center style="margin-top: 50px;">
+
+			订单支付成功！
+
+			<p>订单号：<span id="tradeNoSpan"></span></p>
+			<p>订单金额：<span id="sumSpan"></span>元</p>
+			<div id="marketMoneyDiv"><p>优惠金额：<span id="marketMoney"></span>元</p></div>
+			<div id="tradeMoneyDiv"><p>交易金额：<span id="tradeMoney"></span>元</p></div>
+		</center>-->
+		<div class="header">
+			<div class="all_w" style="position:relative; z-index:1;">
+				<!--<div class="ttwenz" style=" text-align:center; width:100%;height: 45px;line-height: 45px">
+					<h4 style="line-height: 45px">订单成功</h4>
+				</div>-->
+			</div>
+		</div>
+
+		<div class="zfcg_box ">
+			<div class="all_w">
+				 <span id="merchName"></span>
+		  </div>
+
+		</div>
+		<div class="cgzf_info">
+
+
+			<div class="spxx_shop">
+				<div class=" mlr_pm">
+
+					<div width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-left: 30%;font-size: 12px">
+						<p style="height: 25px;line-height: 25px">订单号：<span id="tradeNoSpan"></span></p>
+						<p style="height: 25px;line-height: 25px">订单金额：<span id="sumSpan"></span>元</p>
+						<div style="height: 25px;line-height: 25px" id="marketMoneyDiv"><p>优惠金额：<span id="marketMoney"></span>元</p></div>
+						<div style="height: 25px;line-height: 25px" id="tradeMoneyDiv"><p>交易金额：<span id="tradeMoney"></span>元</p></div>
+
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+
+	</body>
+
+</html>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/constantconfig.js"></script>
+<script type="text/javascript">
+	var u;
+	var browser = {
+		versions: function() {
+			u = navigator.userAgent, app = navigator.appVersion;
+			return {
+				trident: u.indexOf('Trident') > -1, //IE内核 
+				presto: u.indexOf('Presto') > -1, //opera内核 
+				webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核 
+				gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核 
+				mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端 
+				ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端 
+				android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器 
+				iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器 
+				iPad: u.indexOf('iPad') > -1, //是否iPad 
+				webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部 
+			};
+		}()
+	}
+
+	$(function() {
+		//监听回退动作
+		/*pushHistory();
+		window.addEventListener("pushstate", function(e) {
+			alert("我监听到了浏览器的返回按钮事件啦"); //根据自己的需求实现自己的功能
+			//判断浏览器类型
+			var ua = navigator.userAgent.toLowerCase();
+			if(ua.match(/MicroMessenger/i) == 'micromessenger') { //初步判断微信浏览器
+				WeixinJSBridge.call("closeWindow");
+			} else if(ua.indexOf('alipay') != -1) { //支付宝浏览器
+				AlipayJSBridge.call('closeWebview');
+			}
+
+		}, false);*/
+
+		//监听回退动作
+		pushHistory();
+		window.addEventListener("popstate", function(e) {
+			//alert("我监听到了浏览器的返回按钮事件啦"); //根据自己的需求实现自己的功能
+			//AlipayJSBridge.call('closeWebview');
+			//判断浏览器类型
+			var ua = navigator.userAgent.toLowerCase();
+			if(ua.match(/MicroMessenger/i) == 'micromessenger') { //初步判断微信浏览器
+				WeixinJSBridge.call("closeWindow");
+			} else if(ua.indexOf('alipay') != -1) { //支付宝浏览器
+				AlipayJSBridge.call('closeWebview');
+			}
+		}, false);
+
+		function pushHistory() {
+			var state = {
+				title: "title",
+				url: "#"
+			};
+			window.history.pushState(state, "title", "");
+		}
+
+		//alert(Config.getConstant('ADVERTURL'));
+		var acc_code = "";
+		var payType = "";
+		var myUrl = window.location.href;
+		//var u = navigator.userAgent;
+		//alert(myUrl);
+		var args = myUrl.split("?");
+		//if(args.length == 1 && args[0] == myUrl){//当没有参数到这个页面时，跳转到宣传页面
+		//	window.location.href = "http://huihui.oicp.io:40586/top4link-bus-paygate/H5MchtPay.html";
+		//	}else{//截获地址向后台发起请求
+		var params = args[1].split("&");
+		for(var i = 0; i < params.length; i++) {
+			var param = params[i].split("=");
+			if(param[0] == "outTradeNo") {
+				$("#tradeNoSpan").html(param[1])
+			}
+			if(param[0] == "sum") {
+
+				$("#sumSpan").html(param[1]);
+			}
+			if(param[0] == "marketActMoney") {
+         if(param[1]=="0.00"||param[1]=="0"||param[1]==""){
+         document.getElementById("marketMoneyDiv").style.display= "none";
+         document.getElementById("tradeMoneyDiv").style.display= "none";
+        }else{
+				$("#marketMoney").html(param[1]);
+			 }
+			}
+			if(param[0] == "tradeMoney") {
+				$("#tradeMoney").html(param[1]);
+			}
+			if(param[0] == "merchName"){
+				
+				$("#merchName").html(decodeURIComponent(param[1]));
+			}
+		}
+		//}
+
+	});
+</script>

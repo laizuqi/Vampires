@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>宣传页</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}" />
+<style>
+	body{
+		background-color:#F3F3F3;
+	}
+		.pay-input-cls input::-webkit-input-placeholder{
+			color:#d6d0ca;
+			font-size:15px;
+			line-height:33px;
+		}
+		.pay-input-remark input::-webkit-input-placeholder{
+			color:#d6d0ca;
+			font-size:15px;
+		}
+		.address{
+			text-align:center;
+			margin-top:20px;
+		}
+		.address-font{
+			color:#a4a4a4;
+		}
+		.pay-input-cls{
+			height:60px;
+			margin-top:20px;
+			padding:0;
+		}
+		.pay-side{
+			height:60px;
+			padding:0;
+		}
+		.pay-mid{
+			height:60px;
+			padding:0;
+		}
+		.pay-imp-area{
+			border-radius:5px;
+			background-color:white;
+		}
+		.pay-input-sum{
+			width:100%;
+			height:60px;
+			outline:none;
+			border:0 solid #1AB6FF;
+			text-align:right;
+			font-size:25px;
+			line-height:normal;
+		}
+		.pay-left-font{
+			font-family:微软雅黑;
+			color:black;
+			font-size:15px;
+		}
+		.pay-input-left{
+			height:60px;
+			line-height:60px;
+			padding:0 0 0 15px;
+		}
+		.pay-input-right{
+			height:60px;
+			padding:0 0 0 15px;
+		}
+		.pay-input-remark{
+			height:60px;
+			margin-top:20px;
+		}
+		.remark-input{
+			height:60px;
+			width:100%;
+			outline:none;
+			border:0 solid #1AB6FF;
+			font-size:15px;
+			text-indent:10px;
+			text-align:right;
+		}
+		.pay-input-btn{
+			margin-top:30px;
+			padding:0;
+		}
+		.paybtn{
+			width:100%;
+			height:50px;
+			background-color:#02C476;
+			border-color: transparent;
+			color: #ffffff;
+			font-size: 22px;
+			line-height:50px;
+			font-family:微软雅黑;
+			border-radius:5px;
+			padding:0;
+		}
+		.pay-mid-btn{
+			padding:0;
+		}
+		.mi-font{
+			text-align:center;
+			font-size:10px;
+		}
+
+
+</style>
+</head>
+<body>
+
+	<!-- <p id="result">result:</p> -->
+
+	<div class="container">
+
+<!--		<img src="images/bank.jpg"  />-->
+
+		<center style="margin-top: 200px;">
+		<p>请使用支付宝或微信APP扫码支付</p>
+	<!--	<img src="images/bank.jpg"  />-->
+		</center>
+		<div class="row address">
+			<nobr class="mi-font">©第三方支付有限公司提供</nobr>
+		</div>
+
+	</div>
+
+	<script th:src="@{/dist/js/jquery.js}"></script>
+	<script th:src="@{/dist/js/bootstrap.min.js}"></script>
+	<script th:src="@{/layer/layer.js}"></script>
+
+</body>
+</html>

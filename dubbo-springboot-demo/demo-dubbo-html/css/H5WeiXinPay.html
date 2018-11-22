@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/layer/layer.js"></script>
+		<script src="js/constantconfig.js"></script>
+		<style>
+			body {
+				background-color: #F3F3F3;
+			}
+			
+			.pay-input-cls input::-webkit-input-placeholder {
+				color: #d6d0ca;
+				font-size: 15px;
+				line-height: 33px;
+			}
+			
+			.pay-input-remark input::-webkit-input-placeholder {
+				color: #d6d0ca;
+				font-size: 15px;
+			}
+			
+			.address {
+				text-align: center;
+				margin-top: 20px;
+			}
+			
+			.address-font {
+				color: #a4a4a4;
+			}
+			
+			.pay-input-cls {
+				height: 60px;
+				margin-top: 20px;
+				padding: 0;
+			}
+			
+			.pay-side {
+				height: 60px;
+				padding: 0;
+			}
+			
+			.pay-mid {
+				height: 60px;
+				padding: 0;
+			}
+			
+			.pay-imp-area {
+				border-radius: 5px;
+				background-color: white;
+			}
+			
+			.pay-input-sum {
+				width: 100%;
+				height: 60px;
+				outline: none;
+				border: 0 solid #1AB6FF;
+				text-align: right;
+				font-size: 25px;
+				line-height: normal;
+			}
+			
+			.pay-left-font {
+				font-family: 微软雅黑;
+				color: black;
+				font-size: 15px;
+			}
+			
+			.pay-input-left {
+				height: 60px;
+				line-height: 60px;
+				padding: 0 0 0 15px;
+			}
+			
+			.pay-input-right {
+				height: 60px;
+				padding: 0 0 0 15px;
+			}
+			
+			.pay-input-remark {
+				height: 60px;
+				margin-top: 20px;
+			}
+			
+			.remark-input {
+				height: 60px;
+				width: 100%;
+				outline: none;
+				border: 0 solid #1AB6FF;
+				font-size: 15px;
+				text-indent: 10px;
+				text-align: right;
+			}
+			
+			.pay-input-btn {
+				margin-top: 30px;
+				padding: 0;
+			}
+			
+			.paybtn {
+				width: 100%;
+				height: 50px;
+				background-color: #02C476;
+				border-color: transparent;
+				color: #ffffff;
+				font-size: 22px;
+				line-height: 50px;
+				font-family: 微软雅黑;
+				border-radius: 5px;
+				padding: 0;
+			}
+			
+			.pay-mid-btn {
+				padding: 0;
+			}
+			
+			.mi-font {
+				text-align: center;
+				font-size: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- <p id="result">result:</p> -->
+
+		<div class="container">
+
+			<div class="row address">
+				<span class="glyphicon glyphicon-map-marker address-font"></span>&nbsp;<span class="address-font" id="address-font-id"></span>
+			</div>
+
+			<div class="row pay-input-cls">
+				<div class="col-xs-1 pay-side"></div>
+				<div class="col-xs-10 pay-mid">
+					<div class="row pay-imp-area">
+						<div class="col-xs-4 pay-input-left">
+							<nobr class="pay-left-font">消费总金额(元)</nobr>
+						</div>
+						<div class="col-xs-8 pay-input-right">
+							<input placeholder="￥" class="pay-input-sum" id="sum" type="number" name="number" maxlength="8" oninput="controlNum()" placeholder='请确认金额后输入' />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-1 pay-side"></div>
+			</div>
+
+			<div class="row pay-input-remark">
+				<div class="col-xs-1 pay-side"></div>
+				<div class="col-xs-10 pay-mid">
+					<div class="row pay-imp-area">
+						<div class="col-xs-4 pay-input-left">
+							<nobr class="pay-left-font">选填备注</nobr>
+						</div>
+						<div class="col-xs-8 pay-input-right">
+							<input class="remark-input" type="text" id="remark" placeholder='添加备注(20字以内)' maxlength='20' />
+							<!--会话token -->
+							<input class="remark-input" id="mntTokenId" type="hidden" name="mntTokenId" />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-1 pay-side"></div>
+			</div>
+
+			<div class="row pay-input-btn">
+				<div class="col-xs-1 pay-side"></div>
+				<div class="col-xs-10 pay-mid-btn">
+					<div class="row pay-imp-area">
+						<button class="paybtn">确认支付</button>
+					</div>
+				</div>
+				<div class="col-xs-1 pay-side"></div>
+			</div>
+
+			<div class="row address">
+				<nobr class="mi-font">©2017厦门国际银行</nobr>
+			</div>
+
+		</div>
+
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/layer/layer.js"></script>
+
+		<script type="text/javascript">
+			var advertUrl = Config.getConstant('ADVERTURL');
+			var u;
+			var browser = {
+				versions: function() {
+					u = navigator.userAgent, app = navigator.appVersion;
+					return {
+						trident: u.indexOf('Trident') > -1, //IE内核 
+						presto: u.indexOf('Presto') > -1, //opera内核 
+						webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核 
+						gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核 
+						mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端 
+						ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端 
+						android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器 
+						iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器 
+						iPad: u.indexOf('iPad') > -1, //是否iPad 
+						webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部 
+					};
+				}()
+			}
+			/**
+				调起微信收银台
+			*/
+			function onBridgeReady() {
+				alert("appId:" + appId +
+					",timeStamp:" + timeStamp +
+					",nonceStr:" + nonceStr +
+					",package:" + package1 +
+					",signType:" + signType +
+					",paySign:" + paySign);
+				WeixinJSBridge.invoke(
+					'getBrandWCPayRequest', {
+						"appId": appId,
+						"timeStamp": timeStamp,
+						"nonceStr": nonceStr,
+						"package": package1,
+						"signType": signType,
+						"paySign": paySign
+					},
+					function(res) {
+						if(res.err_msg == "get_brand_wcpay_request:ok") {
+							//通知交易完成
+							$.ajax({
+								type: "POST",
+								url: Config.getConstant('CONSOLEURL') + "/qrcode/noticeTradeClose.do",
+								data: "tradeNo=" + tradeNo1 + "&mntTokenId=" + mntTokenId,
+								async: true,
+								timeout: 6000,
+								dataType: 'json',
+								success: function(msg) {
+									if(msg.status != "0") {
+										alert(msg.message);
+										return false;
+									}
+									window.location.href = Config.getConstant('HTMLPAGEURL') + "/success.html?tradeNo=" + tradeNo1 + "&sum=" + sum;
+								},
+								error: function(xhr, errorText, errorStatus) {
+									alert("交易超时");
+								}
+
+							});
+
+						} else {
+							alert(res.err_msg);
+							for(var i in res){//用javascript的for/in循环遍历对象的属性 
+							    temp += i+":"+res.i+"\n"; 
+							    alert(temp);
+							} 
+							
+							$(".paybtn").css({
+								background: "#02C476",
+								border: "none"
+							});
+						}
+
+					}
+				);
+			}
+
+			$(function() {
+
+				var acc_code = "";
+				var payType = "";
+				var myUrl = window.location.href;
+				//var u = navigator.userAgent;
+				var args = myUrl.split("?");
+				if(args.length == 1 && args[0] == myUrl) { //当没有参数到这个页面时，跳转到宣传页面
+					window.location.href = advertUrl;
+				} else { //截获地址向后台发起请求
+					//alert(args[1]);
+
+					if(!!u.match(/AppleWebKit.*Mobile.*/)) {
+						$.ajax({
+							type: "get",
+							url: Config.getConstant('CONSOLEURL') + "/qrcode/mchtInfo.do",
+							data: args[1],
+							dataType: 'json',
+							async: true,
+							timeout: 60000,
+							success: function(rdata) {
+								if(rdata.status == "0") {
+									$("title").text(rdata.mchtName);
+									acc_code = rdata.authCode;
+									payType = rdata.payType;
+									$("#mntTokenId").val(rdata.mntTokenId);
+
+								} else {
+									alert(rdata.message);
+									window.location.href = advertUrl;
+								}
+
+							},
+							error: function(xhr, errorText, errorStatus) {
+								alert("请求超时");
+								//console.log(xhr);
+							}
+						});
+					} else {
+						window.location.href = advertUrl;
+					}
+
+				}
+
+				$("#sum").focus();
+				//支付提交 touchstart
+				$(".paybtn").on('touchstart', function(event) {
+
+					$(".paybtn").css({
+						background: "#B7B7B7",
+						border: "none"
+					});
+					var sum = $("#sum").val();
+					validateSum(sum);
+					var mntTokenId = $("#mntTokenId").val();
+					var remark = $("#remark").val();
+					if(sum <= 0) {
+						alert("金额不能等于零");
+						return false;
+					}
+					//表单防止重复提交
+					//$(this).attr("disabled",true);
+					$.ajax({
+						type: "POST",
+						url: Config.getConstant('CONSOLEURL') + "/qrcode/H5MchtPay.do",
+						data: "sum=" + sum + "&acc_code=" + acc_code + "&remark=" + remark + "&mntTokenId=" + mntTokenId,
+						async: true,
+						timeout: 600000,
+						success: function(msg) {
+
+							var json = JSON.parse(msg);
+							if(json.status == "0") {
+								//给openId赋值，如果重复提交
+								appId = json.appId;
+								timeStamp = json.timeStamp;
+								nonceStr = json.nonceStr;
+								package1 = json.package;
+								signType = json.signType;
+								paySign = json.paySign;
+								
+//								appId = "wxad1fef08cab6ad24";
+//								timeStamp = "1499087231";
+//								nonceStr = "d40f5d40c5944e9ab2a0484123ddb13f";
+//								package1 = "prepay_id=wx2017070321071999dd393abf0531073157"
+//								signType = "MD5";
+//								paySign = "0A5DAACB59C17A899FFECF5070E1EFEB";
+								
+								if(typeof WeixinJSBridge == "undefined") {
+									if(document.addEventListener) {
+										document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+									} else if(document.attachEvent) {
+										document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+										document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+									}
+								} else {
+									onBridgeReady();
+								}
+
+							} else {
+								alert(json.message);
+								$(".paybtn").css({
+									background: "#02C476",
+									border: "none"
+								});
+							}
+
+						},
+						error: function(xhr, errorText, errorStatus) {
+							//$(this).attr("disabled",false);
+							alert("交易超时");
+							$(".paybtn").css({
+								background: "#02C476",
+								border: "none"
+							});
+						}
+					});
+				});
+
+				$('input[type=number]').keypress(function(e) {
+
+					var num = $("#sum").val();
+
+					if(String.fromCharCode(e.keyCode).match(/[.]/)) {
+						if(num.indexOf(".") > 0) {
+							return false;
+						}
+					}
+
+				});
+
+			});
+
+			/**
+				校验金额，只能输入正数
+			*/
+			function validate(num) {
+
+				var exp = /^([1-9][\d]{0,5}|0)(\.{0,1})([\d]{1,2})?$/;
+				return exp.test(num);
+			}
+			/**
+				对输入内容的控制及按钮是否可用的控制
+			*/
+			function controlNum() {
+				var sum = $("#sum").val();
+				if(sum > 100000 || !validate(sum)) {
+					$("#sum").val(sum.substr(0, sum.length - 1));
+					return false;
+				} else {
+					$("#sum").val(sum);
+				}
+
+			}
+
+			function validateSum(sumVal) {
+				if(!validate(sumVal) || (sumVal.indexOf(".") == sumVal.length - 1)) {
+
+					alert("输入金额有误");
+					return false;
+				}
+			}
+		</script>
+	</body>
+
+</html>

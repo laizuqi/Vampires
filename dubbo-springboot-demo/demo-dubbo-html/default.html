@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title></title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<style>
+	body{
+		background-color:#F3F3F3;
+	}
+		.pay-input-cls input::-webkit-input-placeholder{
+			color:#d6d0ca;
+			font-size:15px;
+			line-height:33px;
+		}
+		.pay-input-remark input::-webkit-input-placeholder{
+			color:#d6d0ca;
+			font-size:15px;
+		}
+		.address{
+			text-align:center;
+			margin-top:20px;
+		}
+		.address-font{
+			color:#a4a4a4;
+		}
+		.pay-input-cls{
+			height:60px;
+			margin-top:20px;
+			padding:0;
+		}
+		.pay-side{
+			height:60px;
+			padding:0;
+		}
+		.pay-mid{
+			height:60px;
+			padding:0;
+		}
+		.pay-imp-area{
+			border-radius:5px;
+			background-color:white;
+		}
+		.pay-input-sum{
+			width:100%;
+			height:60px;
+			outline:none; 
+			border:0 solid #1AB6FF;
+			text-align:right;
+			font-size:25px;
+			line-height:normal;
+		}
+		.pay-left-font{
+			font-family:微软雅黑;
+			color:black;
+			font-size:15px;
+		}
+		.pay-input-left{
+			height:60px;
+			line-height:60px;
+			padding:0 0 0 15px;
+		}
+		.pay-input-right{
+			height:60px;
+			padding:0 0 0 15px;
+		}
+		.pay-input-remark{
+			height:60px;
+			margin-top:20px;
+		}
+		.remark-input{
+			height:60px;
+			width:100%;
+			outline:none; 
+			border:0 solid #1AB6FF;
+			font-size:15px;
+			text-indent:10px;
+			text-align:right;
+		}
+		.pay-input-btn{
+			margin-top:30px;
+			padding:0;
+		}
+		.paybtn{
+			width:100%;
+			height:50px;
+			background-color:#ff00cc;
+			border-color: transparent;
+			color: #ffffff;
+			font-size: 22px;
+			line-height:50px;
+			font-family:微软雅黑;
+			border-radius:5px;
+			padding:0;
+		}
+		.pay-mid-btn{
+			padding:0;
+		}
+		.mi-font{
+			text-align:center;
+			font-size:10px;
+		}
+		
+	
+</style>
+</head>
+<body>
+
+	<!-- <p id="result">result:</p> -->
+
+	<div class="container">
+		
+		<div class="row address">
+			<span class="glyphicon glyphicon-map-marker address-font"></span>&nbsp;<span class="address-font" id="address-font-id"></span>
+		</div>
+		
+		<div class="row pay-input-cls">
+			<div class="col-xs-1 pay-side"></div>
+			<div class="col-xs-10 pay-mid">
+				<div class="row pay-imp-area">
+					<div class="col-xs-4 pay-input-left">
+						<nobr class="pay-left-font">消费总金额(元)</nobr>
+					</div>
+					<div class="col-xs-8 pay-input-right">
+						<input class="pay-input-sum" id="sum" type="number" name="number" maxlength="8" oninput="controlNum()"  placeholder='请确认金额后输入' />
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-1 pay-side"></div>
+		</div>
+		
+		<div class="row pay-input-remark">
+			<div class="col-xs-1 pay-side"></div>
+			<div class="col-xs-10 pay-mid">
+				<div class="row pay-imp-area">
+					<div class="col-xs-4 pay-input-left">
+						<nobr class="pay-left-font">选填备注</nobr>
+					</div>
+					<div class="col-xs-8 pay-input-right">
+						<input class="remark-input" type="text" id="remark" placeholder='添加备注(20字以内)'  maxlength='20'/>
+						<!--会话token -->
+						<input class="remark-input" id="mntTokenId" type="hidden" name="mntTokenId"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-1 pay-side"></div>
+		</div>
+		
+		<div class="row pay-input-btn">
+			<div class="col-xs-1 pay-side"></div>
+			<div class="col-xs-10 pay-mid-btn">
+				<div class="row pay-imp-area">
+					<button class="paybtn">确认支付</button>
+				</div>
+			</div>
+			<div class="col-xs-1 pay-side"></div>
+		</div>
+		
+		<div class="row address">
+			<nobr class="mi-font">©2017本行支付</nobr>
+		</div>
+		
+	</div>
+	
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/layer/layer.js"></script>
+	<script type="text/javascript">
+		var u;
+		var browser={ 
+			versions:function(){ 
+				u=  navigator.userAgent, app = navigator.appVersion; 
+				return { 
+					trident: u.indexOf('Trident') > -1, //IE内核 
+					presto: u.indexOf('Presto') > -1, //opera内核 
+					webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核 
+					gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核 
+					mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/), //是否为移动终端 
+					ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端 
+					android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器 
+					iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器 
+					iPad: u.indexOf('iPad') > -1, //是否iPad 
+					webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部 
+				};
+			}()
+		}
+	
+		$(function(){
+			//监听非法输入
+			$("#sum").change(function(){
+				var sumval = $(this).val();
+				if(/^[0-9]{1,5}(\.\d{1,2})?$/.test(sumval)){
+					if(sumval>= 1&&!(/^[1-9]{1,}[0-9]{0,}(\.\d{1,2})?$/.test(sumval))){
+						alert("消费金额输入有误");
+						$(this).val("");
+					}else if(sumval<1&&!(/^0{1}(\.\d{1,2})?$/.test(sumval))){
+						alert("消费金额输入有误");
+						$(this).val("");
+					}			
+				}else{
+					alert("消费金额输入有误");
+					$(this).val("");
+				}
+			});
+			var acc_code = "";
+			var payType = "";
+			var myUrl = window.location.href;
+			//var u = navigator.userAgent;
+			var args = myUrl.split("?");
+			if(args.length == 1 && args[0] == myUrl){//当没有参数到这个页面时，跳转到宣传页面
+				//window.location.href = "http://qr.ymcoo.com/toplink-admin-html-qrpOne/H5MchtPay.html";
+			}else{//截获地址向后台发起请求
+				//if(!!u.match(/AppleWebKit.*Mobile.*/)){
+						$.ajax({
+						type:"get",
+						url:Config.getConstant('CONSOLEURL')+"/qrcode/mchtInfo.do",
+						async:true,
+						data:args[1],
+						success: function(data){
+	                       alert(data);
+	                       var jsonObj = $.parseJSON(data);
+	                       
+	                      // if(jsonObj.status == "0"){
+		                       	 $("title").text(jsonObj.mchtName);
+		                       acc_code = jsonObj.authCode;
+		                       payType = jsonObj.payType;
+	                       //}else{
+	                       	//   alert(jsonObj.message);
+	                      // }
+	                      
+	                    },
+	                    error:function(xhr,errorText,errorStatus){
+							alert("请求超时");
+						}
+					});
+				//}else{
+				//	window.location.href = "http://173b2h9694.imwork.net:25307/toplink-admin-webpage-qrpOne/H5MchtPay.html";
+				//}
+				
+			}
+			y
+			//支付提交
+			$(".paybtn").on('touchstart',function(event){
+			var sum = $("#sum").val();
+			var remark = $("#remark").val();
+			var mntTokenId = $("#mntTokenId").val();
+			if(sum <= 0){
+				return ;
+			}
+			
+			$.ajax({
+				type: "POST",
+				url: Config.getConstant('CONSOLEURL')+"/qrcode/H5MchtPay.do",
+				data: "sum="+sum+"&acc_code="+acc_code+"&remark="+remark+"&mntTokenId="+mntTokenId,
+				dataType:"text",
+				async: true,
+				timeout:60000,
+				success: function(msg){
+					var ua = navigator.userAgent.toLowerCase();					
+					var json = JSON.parse(msg);
+					var tradeNo1 = json.tradeNo;
+					var sum = json.sum;
+					if(tradeNo1 != ""){
+						window.location.href = Config.getConstant('HTMLPAGEURL')+"/success.html?tradeNo="+tradeNo1+"&sum="+sum;
+					}else{
+						alert("下单有误");
+					}
+					
+					
+				},
+				error:function(xhr,errorText,errorStatus){
+					alert("交易失败");
+				}
+			});
+		});
+		});
+	</script>
+</body>
+</html>
