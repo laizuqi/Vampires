@@ -23,6 +23,11 @@ public class UserController {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
+    /*@reference和@resource的区别
+     * 前者是dubbo注解，后者是spring 的。
+	后者@resource很简单就是注入资源，与@Autowired比较接近，只不过是按照变量名（beanid）注入。
+	@reference也是注入，但是一般用来注入分布式的远程服务对象，需要配合dubbo配置使用。
+	他们的区别就是一个是本地spring容器，另一个是把远程服务对象当做spring容器中的对象一样注入。*/
 	@Reference
 	UserService userService;
 

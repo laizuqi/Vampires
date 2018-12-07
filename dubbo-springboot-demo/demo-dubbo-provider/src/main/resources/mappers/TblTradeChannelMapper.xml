@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qrcode.dao.mapper.TblTradeChannelMapper">
+
+	<resultMap type="com.dubbo.entity.TblTradeChannel" id="BaseResultMap">
+		<id column="ID" jdbcType="DECIMAL" property="id" />
+		<result column="TC_ID" jdbcType="DECIMAL" property="tcId" />
+		<result column="TC_NAME" jdbcType="VARCHAR" property="tcName" />
+		<result column="TC_ST" jdbcType="CHAR" property="tcSt" />
+		<result column="PAY_URL" jdbcType="VARCHAR" property="payUrl" />
+		<result column="CRT_DATE" jdbcType="VARCHAR" property="crtDate" />
+		<result column="UPD_DATE" jdbcType="VARCHAR" property="updDate" />
+		<result column="DEL_DATE" jdbcType="VARCHAR" property="delDate" />
+		<result column="MISC1" jdbcType="VARCHAR" property="misc1" />
+		<result column="MISC2" jdbcType="VARCHAR" property="misc2" />
+		<result column="MISC3" jdbcType="VARCHAR" property="misc3" />
+		<result column="MISC4" jdbcType="VARCHAR" property="misc4" />
+	</resultMap>
+	<!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为selectchannelByTCID，id属性值必须是唯一的，不能够重复,
+	使用parameterType属性指明查询时使用的参数类型，
+	resultType属性指明查询返回的结果集类型 
+	resultType="BaseResultMap"就表示将查询结果封装成一个BaseResultMap的对象返回 ,BaseResultMap就是表所对应的实体类 
+	resultMap ?
+	-->
+	<select id="selectchannelByTCID" parameterType="int" resultMap="BaseResultMap">
+		select * from TBL_TRADE_CHANNEL where tc_id = #{tcId}
+	</select>
+</mapper>
